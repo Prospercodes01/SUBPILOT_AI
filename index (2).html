@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SubPilot AI — Stay Ahead of Every Charge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --brand: #0a2540;
+    --brand-mid: #1a3f6f;
+    --accent: #00d4aa;
+    --accent2: #ff6b35;
+    --gold: #f5c518;
+    --text: #0a2540;
+    --muted: #556678;
+    --surface: #f4f7fb;
+    --white: #ffffff;
+    --border: rgba(10,37,64,0.1);
+    --card-bg: #ffffff;
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 18px 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px; font-weight: 800;
+    color: var(--brand); letter-spacing: -0.5px;
+  }
+  .logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    font-size: 14px; color: var(--muted);
+    text-decoration: none; font-weight: 400;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--brand); }
+  .nav-cta {
+    background: var(--brand); color: #fff;
+    border: none; padding: 10px 22px;
+    border-radius: 8px; font-family: 'DM Sans', sans-serif;
+    font-size: 14px; font-weight: 500; cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(10,37,64,0.25); }
+
+ 
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(160deg, #0a2540 0%, #1a3f6f 55%, #0f4c6e 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 120px 5% 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 700px 500px at 110% 30%, rgba(0,212,170,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 500px 400px at -10% 80%, rgba(255,107,53,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-grid {
+    position: absolute; inset: 0; opacity: 0.04;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,212,170,0.12); border: 1px solid rgba(0,212,170,0.3);
+    color: var(--accent); font-size: 12px; font-weight: 500; letter-spacing: 0.5px;
+    padding: 6px 14px; border-radius: 100px;
+    margin-bottom: 28px; text-transform: uppercase;
+    animation: fadeUp 0.6s ease both;
+  }
+  .badge-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(40px, 6vw, 76px);
+    font-weight: 800; color: #ffffff;
+    text-align: center; line-height: 1.05;
+    letter-spacing: -2px; max-width: 900px;
+    animation: fadeUp 0.7s 0.1s ease both;
+    position: relative; z-index: 1;
+  }
+  h1 .accent { color: var(--accent); }
+  h1 .accent2 { color: var(--gold); }
+
+  .hero-sub {
+    font-size: 18px; color: rgba(255,255,255,0.65);
+    text-align: center; max-width: 520px;
+    margin: 24px 0 44px; line-height: 1.7;
+    font-weight: 300;
+    animation: fadeUp 0.7s 0.2s ease both;
+    position: relative; z-index: 1;
+  }
+  .hero-cta {
+    display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;
+    animation: fadeUp 0.7s 0.3s ease both;
+    position: relative; z-index: 1;
+  }
+  .btn-primary {
+    background: var(--accent); color: var(--brand);
+    border: none; padding: 15px 32px;
+    border-radius: 10px; font-family: 'DM Sans', sans-serif;
+    font-size: 15px; font-weight: 600; cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.2s;
+    letter-spacing: -0.2px;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,212,170,0.4); }
+  .btn-ghost {
+    background: transparent; color: rgba(255,255,255,0.8);
+    border: 1px solid rgba(255,255,255,0.25); padding: 15px 32px;
+    border-radius: 10px; font-family: 'DM Sans', sans-serif;
+    font-size: 15px; font-weight: 400; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.5); }
+
+  .hero-stats {
+    display: flex; gap: 48px; margin-top: 72px;
+    animation: fadeUp 0.7s 0.45s ease both;
+    position: relative; z-index: 1; flex-wrap: wrap; justify-content: center;
+  }
+  .stat {
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 32px; font-weight: 800; color: #fff;
+    letter-spacing: -1px;
+  }
+  .stat-label {
+    font-size: 12px; color: rgba(255,255,255,0.45);
+    letter-spacing: 0.5px; text-transform: uppercase; margin-top: 4px;
+  }
+  .stat-sep {
+    width: 1px; background: rgba(255,255,255,0.1);
+    align-self: stretch;
+  }
+
+  
+  .hero-mockup {
+    margin-top: 72px; width: 100%; max-width: 880px;
+    animation: fadeUp 0.8s 0.5s ease both;
+    position: relative; z-index: 1;
+  }
+  .mockup-frame {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px; overflow: hidden;
+    backdrop-filter: blur(10px);
+  }
+  .mockup-bar {
+    background: rgba(255,255,255,0.06);
+    padding: 12px 20px; display: flex; align-items: center; gap: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-r { background: #ff5f57; }
+  .dot-y { background: #febc2e; }
+  .dot-g { background: #28c840; }
+  .mockup-content { padding: 24px; }
+  .mockup-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+  .mockup-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 16px;
+  }
+  .mc-label { font-size: 11px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.5px; }
+  .mc-val {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px; font-weight: 700; color: #fff; margin-top: 6px;
+  }
+  .mc-change { font-size: 11px; margin-top: 4px; }
+  .up { color: var(--accent); }
+  .down { color: #ff6b6b; }
+  .mockup-bottom { display: grid; grid-template-columns: 1.4fr 1fr; gap: 12px; }
+  .sub-list { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 16px; }
+  .sub-list-title { font-size: 12px; color: rgba(255,255,255,0.4); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .sub-item { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .sub-item:last-child { border-bottom: none; }
+  .sub-name { font-size: 13px; color: rgba(255,255,255,0.8); font-weight: 500; }
+  .sub-amt { font-size: 13px; color: #fff; font-family: 'Syne', sans-serif; }
+  .sub-badge { font-size: 10px; padding: 2px 8px; border-radius: 100px; background: rgba(0,212,170,0.15); color: var(--accent); }
+  .sub-badge.warn { background: rgba(255,107,53,0.15); color: var(--accent2); }
+  .alert-card { background: rgba(255,107,53,0.08); border: 1px solid rgba(255,107,53,0.2); border-radius: 12px; padding: 16px; }
+  .alert-title { font-size: 12px; color: rgba(255,255,255,0.4); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .alert-item { padding: 10px 12px; background: rgba(255,255,255,0.04); border-radius: 8px; margin-bottom: 8px; }
+  .alert-name { font-size: 12px; color: rgba(255,255,255,0.9); font-weight: 500; }
+  .alert-date { font-size: 11px; color: var(--accent2); margin-top: 2px; }
+  .score-bar { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 16px; }
+  .score-num { font-family: 'Syne', sans-serif; font-size: 40px; font-weight: 800; color: var(--accent); }
+  .score-track { height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; margin-top: 12px; }
+  .score-fill { height: 100%; width: 74%; background: var(--accent); border-radius: 3px; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+
+  section { padding: 100px 5%; }
+  .section-label {
+    display: inline-block;
+    font-size: 11px; font-weight: 600;
+    color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px;
+    margin-bottom: 16px;
+  }
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(30px, 4vw, 48px); font-weight: 800;
+    color: var(--brand); letter-spacing: -1.5px; line-height: 1.1;
+  }
+  .section-sub { font-size: 16px; color: var(--muted); max-width: 480px; margin-top: 14px; line-height: 1.7; font-weight: 300; }
+
+  .features-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 20px; margin-top: 60px;
+  }
+  .feat-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 32px 28px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .feat-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(10,37,64,0.1); }
+  .feat-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; margin-bottom: 20px;
+  }
+  .feat-icon.teal { background: rgba(0,212,170,0.1); }
+  .feat-icon.orange { background: rgba(255,107,53,0.1); }
+  .feat-icon.blue { background: rgba(26,63,111,0.08); }
+  .feat-icon.gold { background: rgba(245,197,24,0.1); }
+  .feat-icon.purple { background: rgba(139,92,246,0.1); }
+  .feat-icon.red { background: rgba(239,68,68,0.1); }
+  .feat-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px; font-weight: 700; color: var(--brand); margin-bottom: 10px;
+    letter-spacing: -0.3px;
+  }
+  .feat-desc { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+  
+  .how { background: var(--surface); }
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 60px; }
+  .step { text-align: center; padding: 32px 20px; position: relative; }
+  .step::after {
+    content: '→'; position: absolute; right: -12px; top: 50%; transform: translateY(-50%);
+    font-size: 20px; color: var(--border); font-weight: 300;
+  }
+  .step:last-child::after { display: none; }
+  .step-num {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: var(--brand); color: #fff;
+    font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+  }
+  .step-title { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700; color: var(--brand); margin-bottom: 10px; }
+  .step-desc { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+
+  .insights-wrap { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: center; }
+  .insight-cards { display: flex; flex-direction: column; gap: 16px; }
+  .insight-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border); border-radius: var(--radius-sm);
+    padding: 20px 22px; display: flex; align-items: flex-start; gap: 14px;
+    transition: box-shadow 0.2s;
+  }
+  .insight-card:hover { box-shadow: 0 8px 32px rgba(10,37,64,0.08); }
+  .insight-icon {
+    width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 18px;
+  }
+  .insight-text { font-size: 14px; color: var(--brand); line-height: 1.6; font-style: italic; }
+  .insight-type { font-size: 11px; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  
+  .pricing-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 60px; }
+  .price-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 36px 32px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .price-card.featured {
+    background: var(--brand); border-color: var(--brand);
+    transform: scale(1.04);
+  }
+  .price-card.featured .price-label,
+  .price-card.featured .price-num,
+  .price-card.featured .price-cycle,
+  .price-card.featured .price-desc,
+  .price-card.featured .feat-li { color: rgba(255,255,255,0.85); }
+  .price-card.featured .feat-li::before { color: var(--accent); }
+  .price-card.featured .price-num { color: #fff; }
+  .price-card.featured .price-btn { background: var(--accent); color: var(--brand); border-color: transparent; }
+  .price-label { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; color: var(--brand); margin-bottom: 8px; }
+  .price-num { font-family: 'Syne', sans-serif; font-size: 40px; font-weight: 800; color: var(--brand); letter-spacing: -2px; }
+  .price-cycle { font-size: 14px; color: var(--muted); }
+  .price-desc { font-size: 14px; color: var(--muted); margin: 16px 0 24px; line-height: 1.6; }
+  .price-features { list-style: none; margin-bottom: 28px; }
+  .feat-li { font-size: 14px; color: var(--muted); padding: 7px 0; border-bottom: 1px solid var(--border); }
+  .feat-li::before { content: '✓ '; color: var(--accent); font-weight: 600; }
+  .price-btn {
+    width: 100%; padding: 13px; border-radius: 8px;
+    border: 1.5px solid var(--brand); background: transparent;
+    color: var(--brand); font-family: 'DM Sans', sans-serif;
+    font-size: 14px; font-weight: 500; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .price-btn:hover { background: var(--brand); color: #fff; }
+
+  
+  .testimonials { background: var(--brand); }
+  .testimonials h2 { color: #fff; }
+  .testimonials .section-label { color: var(--accent); }
+  .testimonials .section-sub { color: rgba(255,255,255,0.5); }
+  .testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 60px; }
+  .testi-card {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--radius); padding: 28px 24px;
+  }
+  .testi-quote { font-size: 15px; color: rgba(255,255,255,0.75); line-height: 1.7; font-style: italic; margin-bottom: 20px; }
+  .testi-author { display: flex; align-items: center; gap: 12px; }
+  .testi-avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700; color: #fff;
+  }
+  .testi-name { font-size: 13px; font-weight: 600; color: #fff; }
+  .testi-role { font-size: 12px; color: rgba(255,255,255,0.4); }
+
+  
+  .cta-section {
+    background: linear-gradient(135deg, var(--accent) 0%, #00a88a 100%);
+    text-align: center; padding: 100px 5%;
+  }
+  .cta-section h2 { color: var(--brand); letter-spacing: -1px; }
+  .cta-section p { font-size: 17px; color: rgba(10,37,64,0.65); margin: 16px 0 40px; max-width: 460px; margin-left: auto; margin-right: auto; }
+  .cta-btn {
+    background: var(--brand); color: #fff;
+    border: none; padding: 16px 40px; border-radius: 10px;
+    font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700;
+    cursor: pointer; transition: transform 0.15s, box-shadow 0.2s;
+    letter-spacing: -0.3px;
+  }
+  .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(10,37,64,0.3); }
+
+  
+  footer {
+    background: #060f1c; padding: 60px 5% 32px;
+    color: rgba(255,255,255,0.35);
+  }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
+  .footer-brand .logo { color: #fff; margin-bottom: 12px; }
+  .footer-brand p { font-size: 13px; line-height: 1.7; max-width: 240px; }
+  .footer-col h4 { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.7); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .footer-col a { display: block; font-size: 13px; color: rgba(255,255,255,0.4); text-decoration: none; margin-bottom: 10px; transition: color 0.2s; }
+  .footer-col a:hover { color: rgba(255,255,255,0.8); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: gap; }
+  .footer-bottom p { font-size: 12px; }
+
+  
+  @media (max-width: 900px) {
+    .features-grid, .steps, .pricing-grid, .testi-grid { grid-template-columns: 1fr; }
+    .insights-wrap { grid-template-columns: 1fr; }
+    .mockup-row { grid-template-columns: 1fr 1fr; }
+    .mockup-bottom { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+    .step::after { display: none; }
+  }
+  @media (max-width: 600px) {
+    .hero-stats { gap: 24px; }
+    .stat-sep { display: none; }
+    .footer-top { grid-template-columns: 1fr; }
+    .price-card.featured { transform: none; }
+  }
+</style>
+</head>
+<body>
+
+
+<nav>
+  <div class="logo">Sub<span>Pilot</span> AI</div>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+  </ul>
+  <button class="nav-cta">Get Early Access</button>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="badge"><span class="badge-dot"></span> Now in Beta — Free to Try</div>
+  <h1>Never get caught off-guard<br>by a <span class="accent">subscription</span> again<span class="accent2">.</span></h1>
+  <p class="hero-sub">SubPilot AI tracks all your recurring charges, warns you before renewals, and shows you exactly where your money goes every month.</p>
+  <div class="hero-cta">
+    <button class="btn-primary">Start Tracking Free →</button>
+    <button class="btn-ghost">See how it works</button>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">₦47k</div><div class="stat-label">avg saved/year</div></div>
+    <div class="stat-sep"></div>
+    <div class="stat"><div class="stat-num">2min</div><div class="stat-label">setup time</div></div>
+    <div class="stat-sep"></div>
+    <div class="stat"><div class="stat-num">3×</div><div class="stat-label">fewer surprise charges</div></div>
+    <div class="stat-sep"></div>
+    <div class="stat"><div class="stat-num">4.9★</div><div class="stat-label">beta rating</div></div>
+  </div>
+
+  
+  <div class="hero-mockup">
+    <div class="mockup-frame">
+      <div class="mockup-bar">
+        <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+        <span style="font-size:12px;color:rgba(255,255,255,0.3);margin-left:12px;">SubPilot AI — Dashboard</span>
+      </div>
+      <div class="mockup-content">
+        <div class="mockup-row">
+          <div class="mockup-card"><div class="mc-label">Monthly Spend</div><div class="mc-val">₦84,200</div><div class="mc-change down">↑ 12% vs last month</div></div>
+          <div class="mockup-card"><div class="mc-label">Active Subs</div><div class="mc-val">11</div><div class="mc-change up">3 due this week</div></div>
+          <div class="mockup-card"><div class="mc-label">Health Score</div><div class="mc-val">74<span style="font-size:14px;color:rgba(255,255,255,0.4)">/100</span></div><div class="mc-change up">↑ Good standing</div></div>
+          <div class="mockup-card"><div class="mc-label">Potential Savings</div><div class="mc-val">₦15k</div><div class="mc-change up">cancel 2 unused</div></div>
+        </div>
+        <div class="mockup-bottom">
+          <div class="sub-list">
+            <div class="sub-list-title">Active subscriptions</div>
+            <div class="sub-item"><span class="sub-name">Netflix</span><div style="display:flex;align-items:center;gap:8px"><span class="sub-amt">₦5,500</span><span class="sub-badge">Active</span></div></div>
+            <div class="sub-item"><span class="sub-name">Canva Pro</span><div style="display:flex;align-items:center;gap:8px"><span class="sub-amt">₦7,500</span><span class="sub-badge warn">3 days</span></div></div>
+            <div class="sub-item"><span class="sub-name">Spotify</span><div style="display:flex;align-items:center;gap:8px"><span class="sub-amt">₦4,000</span><span class="sub-badge">Active</span></div></div>
+            <div class="sub-item"><span class="sub-name">ChatGPT Plus</span><div style="display:flex;align-items:center;gap:8px"><span class="sub-amt">₦16,000</span><span class="sub-badge warn">7 days</span></div></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div class="alert-card">
+              <div class="alert-title">🔔 Upcoming renewals</div>
+              <div class="alert-item"><div class="alert-name">Canva Pro</div><div class="alert-date">Renews in 3 days · ₦7,500</div></div>
+              <div class="alert-item"><div class="alert-name">ChatGPT Plus</div><div class="alert-date">Renews in 7 days · ₦16,000</div></div>
+            </div>
+            <div class="score-bar">
+              <div class="mc-label">Financial Health</div>
+              <div class="score-num">74</div>
+              <div class="score-track"><div class="score-fill"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="features">
+  <div style="text-align:center;margin-bottom:20px">
+    <span class="section-label">Everything you need</span>
+    <h2>Your subscriptions,<br>finally under control</h2>
+    <p class="section-sub" style="margin:14px auto 0">Six powerful tools to help you track, understand, and optimize every recurring payment.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feat-card">
+      <div class="feat-icon teal">🔄</div>
+      <div class="feat-title">Subscription Tracker</div>
+      <p class="feat-desc">Add any subscription with name, amount, billing cycle, and renewal date. See everything in one clean view — no more spreadsheets.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon orange">🔔</div>
+      <div class="feat-title">Smart Renewal Alerts</div>
+      <p class="feat-desc">Get notified 7 days, 3 days, 1 day, and on the day of renewal. Never wake up to an unexpected charge again.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon blue">📊</div>
+      <div class="feat-title">Spending Analytics</div>
+      <p class="feat-desc">Visual breakdowns by category — food, transport, subscriptions, entertainment. Pie charts, bar charts, monthly trends, all in one place.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon gold">🤖</div>
+      <div class="feat-title">AI Financial Insights</div>
+      <p class="feat-desc">"You spent 32% more on entertainment this month." Smart, personalized analysis that tells you exactly what to do differently.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon purple">💰</div>
+      <div class="feat-title">Budget Planner</div>
+      <p class="feat-desc">Set monthly limits per category. Get warned before you overspend. Track how much breathing room you have left each month.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon red">❤️</div>
+      <div class="feat-title">Health Score</div>
+      <p class="feat-desc">A single score (0–100) that reflects your financial habits — how many subs you have, how well you stick to your budget, and more.</p>
+    </div>
+  </div>
+</section>
+
+
+<section class="how" id="how">
+  <div style="text-align:center">
+    <span class="section-label">Simple setup</span>
+    <h2>From signup to savings<br>in under 5 minutes</h2>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-title">Create your account</div>
+      <p class="step-desc">Sign up in seconds. No credit card required. Just an email and a password.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-title">Add your subscriptions</div>
+      <p class="step-desc">Enter Netflix, Spotify, Canva — any recurring payment, manually in seconds.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-title">Set your budget</div>
+      <p class="step-desc">Tell SubPilot how much you want to spend per month and per category.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-title">Stay ahead</div>
+      <p class="step-desc">Receive alerts before renewals. Watch your health score climb as you optimize.</p>
+    </div>
+  </div>
+</section>
+
+
+<section id="insights">
+  <div class="insights-wrap">
+    <div>
+      <span class="section-label">AI-powered</span>
+      <h2>Your personal<br>finance advisor</h2>
+      <p class="section-sub">SubPilot's insight engine analyzes your patterns and tells you exactly what to do — in plain language, not financial jargon.</p>
+      <button class="btn-primary" style="margin-top:32px;background:var(--brand);color:#fff;border:none;padding:14px 28px;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer">Get My Insights →</button>
+    </div>
+    <div class="insight-cards">
+      <div class="insight-card">
+        <div class="feat-icon teal" style="margin:0;flex-shrink:0">💡</div>
+        <div><div class="insight-text">"You spent 32% more on entertainment this month compared to last. Consider reviewing Netflix and Showmax."</div><div class="insight-type">spending alert</div></div>
+      </div>
+      <div class="insight-card">
+        <div class="feat-icon orange" style="margin:0;flex-shrink:0">⚠️</div>
+        <div><div class="insight-text">"Your subscriptions account for 24% of monthly expenses. The average is 12% for your income bracket."</div><div class="insight-type">subscription health</div></div>
+      </div>
+      <div class="insight-card">
+        <div class="feat-icon gold" style="margin:0;flex-shrink:0">💰</div>
+        <div><div class="insight-text">"You could save ₦15,000/month by canceling Canva Pro and Adobe — you haven't used them in 6 weeks."</div><div class="insight-type">savings opportunity</div></div>
+      </div>
+      <div class="insight-card">
+        <div class="feat-icon blue" style="margin:0;flex-shrink:0">📈</div>
+        <div><div class="insight-text">"Your financial health score improved from 61 to 74 this month. Keep it up — cancel one more sub to hit 80."</div><div class="insight-type">health score</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="pricing" style="background:var(--surface)">
+  <div style="text-align:center">
+    <span class="section-label">Pricing</span>
+    <h2>Start free, upgrade when<br>you're ready</h2>
+    <p class="section-sub" style="margin:14px auto 0">No surprises. No hidden charges. Cancel anytime — we practice what we preach.</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-label">Free</div>
+      <div><span class="price-num">₦0</span></div>
+      <div class="price-cycle">forever</div>
+      <div class="price-desc">Perfect for getting started and tracking your key subscriptions.</div>
+      <ul class="price-features">
+        <li class="feat-li">Up to 5 subscriptions</li>
+        <li class="feat-li">7-day renewal alerts</li>
+        <li class="feat-li">Basic expense tracking</li>
+        <li class="feat-li">Monthly spending summary</li>
+      </ul>
+      <button class="price-btn">Get Started Free</button>
+    </div>
+    <div class="price-card featured">
+      <div style="font-size:11px;background:rgba(0,212,170,0.2);color:var(--accent);padding:4px 12px;border-radius:100px;display:inline-block;margin-bottom:12px;letter-spacing:0.5px;font-weight:600">MOST POPULAR</div>
+      <div class="price-label">Pro</div>
+      <div><span class="price-num">₦2,500</span></div>
+      <div class="price-cycle">per month</div>
+      <div class="price-desc">Full access to AI insights, alerts, and unlimited tracking.</div>
+      <ul class="price-features">
+        <li class="feat-li">Unlimited subscriptions</li>
+        <li class="feat-li">7, 3, 1-day alerts + email</li>
+        <li class="feat-li">AI financial insights</li>
+        <li class="feat-li">Budget planner</li>
+        <li class="feat-li">Health score</li>
+        <li class="feat-li">Spending analytics</li>
+      </ul>
+      <button class="price-btn">Start Pro Trial</button>
+    </div>
+    <div class="price-card">
+      <div class="price-label">Teams</div>
+      <div><span class="price-num">₦7,500</span></div>
+      <div class="price-cycle">per month · up to 5 users</div>
+      <div class="price-desc">For households, small businesses, and teams sharing expenses.</div>
+      <ul class="price-features">
+        <li class="feat-li">Everything in Pro</li>
+        <li class="feat-li">Shared family budgets</li>
+        <li class="feat-li">5 team members</li>
+        <li class="feat-li">WhatsApp/SMS alerts</li>
+        <li class="feat-li">Priority support</li>
+      </ul>
+      <button class="price-btn">Contact Sales</button>
+    </div>
+  </div>
+</section>
+
+
+<section class="testimonials">
+  <div style="text-align:center">
+    <span class="section-label">Loved by users</span>
+    <h2>What our beta users say</h2>
+    <p class="section-sub" style="margin:14px auto 0">Real feedback from students and young professionals across Nigeria.</p>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <p class="testi-quote">"I didn't realize I was paying for 4 services I barely use. SubPilot showed me in 5 minutes. Canceled two immediately — that's ₦12,000 back in my pocket."</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:#1a3f6f">AO</div>
+        <div><div class="testi-name">Adaeze Okonkwo</div><div class="testi-role">UI/UX Designer, Lagos</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <p class="testi-quote">"The alerts are genuinely useful. Got a notification 3 days before Canva renewed and actually had time to cancel the plan I wasn't using. Game changer."</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:#0f4c6e">TF</div>
+        <div><div class="testi-name">Tolu Fashola</div><div class="testi-role">Freelance Developer, Abuja</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <p class="testi-quote">"As a student on a tight budget, this is exactly what I needed. The spending breakdown showed me I was spending more on streaming than on food. Oops."</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:#00a88a">EM</div>
+        <div><div class="testi-name">Emeka Martins</div><div class="testi-role">University Student, Enugu</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="cta-section">
+  <h2>Take control of your money.<br>Start in 2 minutes.</h2>
+  <p>Join thousands of Nigerians who've stopped losing money to forgotten subscriptions.</p>
+  <button class="cta-btn">Create Free Account →</button>
+</section>
+
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="logo">Sub<span>Pilot</span> AI</div>
+      <p style="margin-top:12px">A smart subscription and spending intelligence platform for students, freelancers, and young professionals.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <a href="#">Features</a>
+      <a href="#">Pricing</a>
+      <a href="#">Changelog</a>
+      <a href="#">Roadmap</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#">About</a>
+      <a href="#">Blog</a>
+      <a href="#">Careers</a>
+      <a href="#">Press</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Cookie Policy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 SubPilot AI. All rights reserved.</p>
+    <p>Built with ❤️ in Nigeria 🇳🇬</p>
+  </div>
+</footer>
+
+</body>
+</html>
